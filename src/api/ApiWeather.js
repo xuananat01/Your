@@ -31,7 +31,7 @@ const formatCurrentWeather = data => {
     wind: {speed},
   } = data;
 
-  const {main: details, icon} = weather[0];
+  const {main: details, icon, description} = weather[0];
 
   return {
     lat,
@@ -49,12 +49,13 @@ const formatCurrentWeather = data => {
     details,
     icon,
     speed,
+    description,
   };
 };
 //fecth api daily, hourly
 const formatForecastWeather = data => {
   let {timezone, daily, hourly} = data;
-  //fecth daily
+  //get daily
   daily = daily.slice(1, 6).map(d => {
     return {
       title: formatToLocalTime(d.dt, timezone, 'ccc'),
@@ -62,10 +63,10 @@ const formatForecastWeather = data => {
       icon: d.weather[0].icon,
     };
   });
-  //fecth hourly
-  hourly = hourly.slice(1, 6).map(d => {
+  //get hourly
+  hourly = hourly.slice(1, 24).map(d => {
     return {
-      title: formatToLocalTime(d.dt, timezone, 'hh:mm a'),
+      title: formatToLocalTime(d.dt, timezone, 'h:mm a'),
       temp: d.temp,
       icon: d.weather[0].icon,
     };
@@ -77,7 +78,7 @@ const formatForecastWeather = data => {
 const formatToLocalTime = (
   secs,
   zone,
-  format = "cccc, dd LLL yyyy' | 'hh:mm a",
+  format = "cccc, dd LLL yyyy' | 'h:mm a",
 ) => DateTime.fromSeconds(secs).setZone(zone).toFormat(format);
 
 //fetch with weather to get lat, lon

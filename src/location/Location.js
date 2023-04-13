@@ -15,13 +15,6 @@ const Location = () => {
   const [locationStatus, setLocationStatus] = useState('');
   // const [location, setLocation] = useState(false);
 
-  //permission
-  useEffect(() => {
-    setTimeout(() => {
-      checkPermission();
-    }, 1000);
-  }, []);
-
   const checkPermission = async () => {
     try {
       const granted = await PermissionsAndroid.check(
@@ -45,6 +38,7 @@ const Location = () => {
       console.log('error', error);
     }
   };
+
   //get current location
   const getLocation = () => {
     Geolocation.getCurrentPosition(
@@ -73,6 +67,12 @@ const Location = () => {
       },
     );
   };
+  //permission
+  useEffect(() => {
+    setTimeout(() => {
+      checkPermission();
+    }, 1000);
+  }, []);
   return (
     <View>
       <View

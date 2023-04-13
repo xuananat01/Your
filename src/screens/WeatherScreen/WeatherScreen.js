@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import FullScreenChz from 'react-native-fullscreen-chz';
 import Ionic from 'react-native-vector-icons/Ionicons';
-import getFormattedWeatherData, {apiKey, BASE_URL} from '../../api/ApiWeather';
+import getFormattedWeatherData from '../../api/ApiWeather';
 import DeatilWeatherDaily from '../../components/DeatilWeatherDaily';
 import DetailWeatherHourly from '../../components/DetailWeatherHourly';
 import TimeAndLocation from '../../components/TimeAndLocation';
-import BodyScreen from '../../components/BodyScreen';
+import DetailForecastCity from '../../components/DetailForecastCity';
 
 //fullScreen
 FullScreenChz.disable();
@@ -22,7 +22,7 @@ FullScreenChz.disable();
 const {width, height} = Dimensions.get('window');
 
 const WeatherScreen = () => {
-  const [city, setCity] = useState({q: 'london'});
+  const [city, setCity] = useState({q: 'hanoi'});
   const [units, setUnits] = useState('imperial');
   const [data, setData] = useState();
   const [inputText, setInputText] = useState('');
@@ -87,11 +87,11 @@ const WeatherScreen = () => {
           <Ionic name="search" size={24} />
         </TouchableOpacity>
       </View>
-      {/* <TimeAndLocation /> */}
       {data ? (
         <View>
           <TimeAndLocation weather={data} />
-          <DetailWeatherHourly />
+          <DetailForecastCity weather={data} />
+          <DetailWeatherHourly items={data.hourly} />
           <DeatilWeatherDaily />
         </View>
       ) : null}
