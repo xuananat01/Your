@@ -56,11 +56,14 @@ const formatCurrentWeather = data => {
 const formatForecastWeather = data => {
   let {timezone, daily, hourly} = data;
   //get daily
-  daily = daily.slice(1, 6).map(d => {
+  daily = daily.slice(1, 8).map(d => {
     return {
-      title: formatToLocalTime(d.dt, timezone, 'ccc'),
+      title: formatToLocalTime(d.dt, timezone, 'cccc'),
       temp: d.temp.day,
       icon: d.weather[0].icon,
+      description: d.weather[0].description,
+      temp_max: d.temp.max,
+      temp_min: d.temp.min,
     };
   });
   //get hourly

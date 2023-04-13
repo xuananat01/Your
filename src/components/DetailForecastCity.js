@@ -4,20 +4,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {formatToLocalTime} from '../api/ApiWeather';
 
 const DetailForecastCity = ({
-  weather: {
-    icon,
-    sunrise,
-    sunset,
-    temp,
-    details,
-    temp_max,
-    temp_min,
-    humidity,
-    speed,
-    timezone,
-    description,
-    feels_like,
-  },
+  weather: {sunrise, sunset, temp, details, timezone},
 }) => {
   return (
     <View>
@@ -31,11 +18,13 @@ const DetailForecastCity = ({
           <Text style={{fontSize: 18, fontWeight: '600'}}>{`${details}`}</Text>
         </View>
         <View style={[styles.visitble, {position: 'absolute', right: 25}]}>
-          <Text style={{fontSize: 16}}>
-            Hight: {`${((temp_max - 32) * (5 / 9)).toFixed()}°C`}
+          <Text style={{fontSize: 16, marginTop: 5}}>
+            <Feather name="sunrise" size={20} />
+            {} {formatToLocalTime(sunrise, timezone, 'h:mm a')}
           </Text>
-          <Text style={{fontSize: 16}}>
-            Low: {`${((temp_min - 32) * (5 / 9)).toFixed()}°C`}
+          <Text style={{fontSize: 16, marginTop: 15}}>
+            <Feather name="sunset" size={20} />
+            {} {formatToLocalTime(sunset, timezone, 'h:mm a')}
           </Text>
           {/* <Text style={styles.detailsForecast}>
             <Feather name="thermometer" size={22} />
@@ -46,16 +35,6 @@ const DetailForecastCity = ({
             {`${speed.toFixed()} km/h`}
           </Text> */}
         </View>
-      </View>
-      <View style={{flexDirection: 'row', marginLeft: 25}}>
-        <Text style={{fontSize: 16}}>
-          <Feather name="sunrise" size={22} />
-          {} {formatToLocalTime(sunrise, timezone, 'h:mm a')}
-        </Text>
-        <Text style={{fontSize: 16, marginLeft: 15}}>
-          <Feather name="sunset" size={22} />
-          {} {formatToLocalTime(sunset, timezone, 'h:mm a')}
-        </Text>
       </View>
     </View>
   );
@@ -79,8 +58,5 @@ const styles = StyleSheet.create({
   visitble: {
     marginTop: 13,
     marginLeft: 8,
-  },
-  icon: {
-    marginRight: 5,
   },
 });

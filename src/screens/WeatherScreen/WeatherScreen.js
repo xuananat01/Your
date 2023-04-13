@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {
   Dimensions,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -78,7 +79,7 @@ const WeatherScreen = () => {
           style={styles.findCity}
           placeholder="Search city"
           value={inputText}
-          autoFocus={true}
+          // autoFocus={true}
           onChangeText={newValue => setInputText(newValue)}
         />
         <TouchableOpacity
@@ -88,12 +89,21 @@ const WeatherScreen = () => {
         </TouchableOpacity>
       </View>
       {data ? (
-        <View>
+        <ScrollView>
           <TimeAndLocation weather={data} />
           <DetailForecastCity weather={data} />
           <DetailWeatherHourly items={data.hourly} />
-          <DeatilWeatherDaily />
-        </View>
+          <Text
+            style={{
+              height: 1,
+              width: '90%',
+              marginHorizontal: '5%',
+              marginTop: 20,
+              backgroundColor: 'black',
+            }}
+          />
+          <DeatilWeatherDaily items={data.daily} />
+        </ScrollView>
       ) : null}
     </View>
   );

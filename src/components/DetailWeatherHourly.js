@@ -1,11 +1,20 @@
-import {ScrollView, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import {iconUrlFromCode} from '../api/ApiWeather';
+
+const {width, height} = Dimensions.get('window');
 
 const DetailWeatherHourly = ({items}) => {
   // console.log(items);
   return (
-    <ScrollView style={styles.detailDaily} horizontal>
+    <ScrollView style={styles.detailHourly} horizontal>
       {items.map(item => (
         <View
           style={{
@@ -29,7 +38,7 @@ const DetailWeatherHourly = ({items}) => {
 export default DetailWeatherHourly;
 
 const styles = StyleSheet.create({
-  detailDaily: {
+  detailHourly: {
     marginLeft: 15,
     marginTop: 20,
   },
