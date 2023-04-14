@@ -5,13 +5,10 @@ import {iconUrlFromCode} from '../api/ApiWeather';
 const DeatilWeatherDaily = ({items}) => {
   return (
     <View style={styles.detailDaily}>
-      {items.map(item => (
+      {items.map((item, i) => (
         <View
-          style={{
-            marginLeft: 10,
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}>
+          key={i}
+          style={{marginLeft: 10, alignItems: 'center', flexDirection: 'row'}}>
           <Text style={{fontSize: 15, width: 80}}>{item.title}</Text>
           <View style={{marginLeft: 30}}>
             <Image

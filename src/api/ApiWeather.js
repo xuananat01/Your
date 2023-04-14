@@ -19,11 +19,11 @@ const getWeatherData = (infoType, searchParams) => {
     .catch(err => console.log('err: ', err));
 };
 
-// get data current weather data
+// weather data
 const formatCurrentWeather = data => {
   const {
     coord: {lat, lon},
-    main: {temp, feels_like, temp_min, temp_max, humidity},
+    main: {temp, feels_like, temp_min, temp_max, humidity, pressure},
     name,
     dt,
     sys: {country, sunrise, sunset},
@@ -50,6 +50,7 @@ const formatCurrentWeather = data => {
     icon,
     speed,
     description,
+    pressure,
   };
 };
 //fecth api daily, hourly

@@ -15,8 +15,9 @@ const DetailWeatherHourly = ({items}) => {
   // console.log(items);
   return (
     <ScrollView style={styles.detailHourly} horizontal>
-      {items.map(item => (
+      {items.map((item, i) => (
         <View
+          key={i}
           style={{
             marginHorizontal: 10,
             alignItems: 'center',

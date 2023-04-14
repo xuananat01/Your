@@ -26,14 +26,6 @@ const DetailForecastCity = ({
             <Feather name="sunset" size={20} />
             {} {formatToLocalTime(sunset, timezone, 'h:mm a')}
           </Text>
-          {/* <Text style={styles.detailsForecast}>
-            <Feather name="thermometer" size={22} />
-            Real Fell: {`${((feels_like - 32) * (5 / 9)).toFixed()}°C`}
-          </Text>
-          <Text style={styles.detailsForecast}>{`${humidity.toFixed()}%`}</Text>
-          <Text style={styles.detailsForecast}>
-            {`${speed.toFixed()} km/h`}
-          </Text> */}
         </View>
       </View>
     </View>
@@ -50,10 +42,6 @@ const styles = StyleSheet.create({
   txtTempBig: {
     fontSize: 70,
     marginLeft: 25,
-  },
-  detailsForecast: {
-    fontSize: 15,
-    fontWeight: '500',
   },
   visitble: {
     marginTop: 13,

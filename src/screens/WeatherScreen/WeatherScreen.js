@@ -16,6 +16,7 @@ import DeatilWeatherDaily from '../../components/DeatilWeatherDaily';
 import DetailWeatherHourly from '../../components/DetailWeatherHourly';
 import TimeAndLocation from '../../components/TimeAndLocation';
 import DetailForecastCity from '../../components/DetailForecastCity';
+import DetailWeatherCity from '../../components/DetailWeatherCity';
 
 //fullScreen
 FullScreenChz.disable();
@@ -93,16 +94,9 @@ const WeatherScreen = () => {
           <TimeAndLocation weather={data} />
           <DetailForecastCity weather={data} />
           <DetailWeatherHourly items={data.hourly} />
-          <Text
-            style={{
-              height: 1,
-              width: '90%',
-              marginHorizontal: '5%',
-              marginTop: 20,
-              backgroundColor: 'black',
-            }}
-          />
+          <Text style={styles.line} />
           <DeatilWeatherDaily items={data.daily} />
+          <DetailWeatherCity weather={data} />
         </ScrollView>
       ) : null}
     </View>
@@ -164,5 +158,12 @@ const styles = StyleSheet.create({
   largeIcon: {
     width: 80,
     height: 80,
+  },
+  line: {
+    height: 1,
+    width: '90%',
+    marginHorizontal: '5%',
+    marginTop: 20,
+    backgroundColor: 'black',
   },
 });
