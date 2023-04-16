@@ -1,3 +1,3 @@
-export const BACKGROUND_WEATHER_RAIN = require('../images/rain_weather_background.gif');
-export const BACKGROUND_WEATHER_SNOW = require('../images/snow_weather_background.gif');
-export const BACKGROUND_WEATHER_CLOUD = require('../images/cloud_weather_background.gif');
+export const BACKGROUND_WEATHER_RAIN = require('../images/rainy.jpg');
+export const BACKGROUND_WEATHER_HOT = require('../images/sunny.jpg');
+export const BACKGROUND_WEATHER_CLOUD = require('../images/cloudy.jpg');

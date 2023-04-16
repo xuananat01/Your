@@ -28,7 +28,7 @@ const DetailWeatherHourly = ({items}) => {
             style={styles.icon}
           />
           <Text style={{fontSize: 15, fontWeight: '500'}}>
-            {`${((item.temp - 32) * (5 / 9)).toFixed()}°C`}
+            {`${item.temp.toFixed()}°C`}
           </Text>
         </View>
       ))}

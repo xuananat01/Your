@@ -9,10 +9,7 @@ const DetailForecastCity = ({
   return (
     <View>
       <View style={{flexDirection: 'row'}}>
-        <Text style={[styles.txtTempBig]}>{`${(
-          (temp - 32) *
-          (5 / 9)
-        ).toFixed()}`}</Text>
+        <Text style={[styles.txtTempBig]}>{`${temp.toFixed()}`}</Text>
         <View style={styles.visitble}>
           <Text style={{fontSize: 30}}>°C</Text>
           <Text style={{fontSize: 18, fontWeight: '600'}}>{`${details}`}</Text>

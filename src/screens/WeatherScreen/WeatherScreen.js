@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
-  Image,
+  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,32 +13,22 @@ import FullScreenChz from 'react-native-fullscreen-chz';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import getFormattedWeatherData from '../../api/ApiWeather';
 import DeatilWeatherDaily from '../../components/DeatilWeatherDaily';
-import DetailWeatherHourly from '../../components/DetailWeatherHourly';
-import TimeAndLocation from '../../components/TimeAndLocation';
 import DetailForecastCity from '../../components/DetailForecastCity';
 import DetailWeatherCity from '../../components/DetailWeatherCity';
-
+import DetailWeatherHourly from '../../components/DetailWeatherHourly';
+import TimeAndLocation from '../../components/TimeAndLocation';
 //fullScreen
-FullScreenChz.disable();
+FullScreenChz.enable();
 
 const {width, height} = Dimensions.get('window');
 
-const WeatherScreen = () => {
+const WeatherScreen = ({navigation}) => {
   const [city, setCity] = useState({q: 'hanoi'});
-  const [units, setUnits] = useState('imperial');
+  const [units, setUnits] = useState('metric');
   const [data, setData] = useState();
   const [inputText, setInputText] = useState('');
 
   //callApiWeather
-
-  // useEffect(() => {
-  //   fetch(
-  //     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`,
-  //   )
-  //     .then(res => res.json())
-  //     .then(res => setData(res))
-  //     .catch(err => console.log('error: ', err));
-  // }, [cityname]);
 
   useEffect(() => {
     const fecthWeather = async () => {
@@ -61,44 +51,50 @@ const WeatherScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerHeader}>
-        <TouchableOpacity>
-          <Ionic
-            name="location-outline"
-            size={22}
-            style={styles.iconLocation}
+      <ImageBackground
+        source={require('../../assets/images/bg.jpg')}
+        resizeMode="cover"
+        style={{flex: 1}}>
+        <View style={styles.containerHeader}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('locationScreen')}>
+            <Ionic
+              name="location-outline"
+              size={22}
+              style={styles.iconLocation}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Ionic
+              name="ellipsis-vertical"
+              size={22}
+              style={styles.iconSetting}
+            />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.findCity}
+            placeholder="Search city"
+            value={inputText}
+            // autoFocus={true}
+            onChangeText={newValue => setInputText(newValue)}
           />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionic
-            name="ellipsis-vertical"
-            size={22}
-            style={styles.iconSetting}
-          />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.findCity}
-          placeholder="Search city"
-          value={inputText}
-          // autoFocus={true}
-          onChangeText={newValue => setInputText(newValue)}
-        />
-        <TouchableOpacity
-          style={styles.tobSearch}
-          onPress={() => sendValues(inputText)}>
-          <Ionic name="search" size={24} />
-        </TouchableOpacity>
-      </View>
-      {data ? (
-        <ScrollView>
-          <TimeAndLocation weather={data} />
-          <DetailForecastCity weather={data} />
-          <DetailWeatherHourly items={data.hourly} />
-          <Text style={styles.line} />
-          <DeatilWeatherDaily items={data.daily} />
-          <DetailWeatherCity weather={data} />
-        </ScrollView>
-      ) : null}
+          <TouchableOpacity
+            style={styles.tobSearch}
+            onPress={() => sendValues(inputText)}>
+            <Ionic name="search" size={22} />
+          </TouchableOpacity>
+        </View>
+        {data ? (
+          <ScrollView>
+            <TimeAndLocation weather={data} />
+            <DetailForecastCity weather={data} />
+            <DetailWeatherHourly items={data.hourly} />
+            <Text style={styles.line} />
+            <DeatilWeatherDaily items={data.daily} />
+            <DetailWeatherCity weather={data} />
+          </ScrollView>
+        ) : null}
+      </ImageBackground>
     </View>
   );
 };
@@ -107,14 +103,12 @@ export default WeatherScreen;
 
 const styles = StyleSheet.create({
   container: {
-    width,
-    height,
-    backgroundColor: 'white',
+    flex: 1,
   },
   containerHeader: {
     flexDirection: 'column',
-    backgroundColor: 'white',
     width,
+    marginTop: 30,
   },
   iconLocation: {
     position: 'absolute',
@@ -129,18 +123,20 @@ const styles = StyleSheet.create({
     top: 25,
   },
   findCity: {
-    fontSize: 16,
+    fontSize: 14,
     marginTop: 80,
     marginHorizontal: 25,
     paddingLeft: 15,
     borderColor: 'black',
     borderRadius: 25,
     borderWidth: 1,
+    height: 40,
+    // position: 'relative',
   },
   tobSearch: {
     position: 'absolute',
     right: 45,
-    marginTop: 90,
+    marginTop: 88,
   },
   temperatureTitle: {
     fontSize: 55,

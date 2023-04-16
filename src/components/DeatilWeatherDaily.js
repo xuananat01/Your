@@ -29,9 +29,9 @@ const DeatilWeatherDaily = ({items}) => {
               position: 'absolute',
               right: 25,
             }}>
-            {`${((item.temp_max - 32) * (5 / 9)).toFixed()}`}
+            {`${item.temp_max.toFixed()}`}
             {' / '}
-            {`${((item.temp_min - 32) * (5 / 9)).toFixed()}°C`}
+            {`${item.temp_min.toFixed()}°C`}
           </Text>
         </View>
       ))}

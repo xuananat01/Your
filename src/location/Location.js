@@ -1,92 +1,52 @@
-import Geolocation from '@react-native-community/geolocation';
-import React, {useEffect, useState} from 'react';
-import {
-  PermissionsAndroid,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React from 'react';
+import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
-const Location = () => {
-  //getcurrent state
-  const [currentLongitude, setCurrentLongitude] = useState();
-  const [currentLatitude, setCurrentLatitude] = useState();
-  const [locationStatus, setLocationStatus] = useState('');
-  // const [location, setLocation] = useState(false);
-
-  const checkPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.check(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-      console.log('result: ', granted);
-
-      if (granted === true) {
-      } else if (granted === false) {
-        const status = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        );
-
-        if (status === 'never_ask_again') {
-        } else if (status === 'denied') {
-          checkPermission();
-        } else if (status === 'granted') {
-        }
-      }
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
-
-  //get current location
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        // setLocationStatus('You are Here');
-
-        //getting the Longitude from the location json
-        const currentLongitude = JSON.stringify(position.coords.longitude);
-
-        //getting the Latitude from the location json
-        const currentLatitude = JSON.stringify(position.coords.latitude);
-
-        //Setting Longitude state
-        setCurrentLongitude(currentLongitude);
-
-        //Setting Latitude state
-        setCurrentLatitude(currentLatitude);
-      },
-      error => {
-        setLocationStatus(error.message);
-      },
-      {
-        enableHighAccuracy: false,
-        timeout: 10000,
-        maximumAge: 1000,
-      },
-    );
-  };
-  //permission
-  useEffect(() => {
-    setTimeout(() => {
-      checkPermission();
-    }, 1000);
-  }, []);
+const Location = ({item, weather: {temp, description}}) => {
   return (
-    <View>
-      <View
-        style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}>
-        <TouchableOpacity onPress={getLocation}>
-          <Text>getLocation</Text>
+    <View style={styles.container}>
+      <LinearGradient
+        colors={['#e6f4f7', '#cde9ee', '#b3dfe6']}
+        style={styles.linear}>
+        <TouchableOpacity style={{flexDirection: 'row'}}>
+          <Text style={styles.txtInfoweather}>{item}</Text>
+          <Text style={styles.tempweather}>{temp.toFixed()}</Text>
+          <Text style={styles.description}>{description}</Text>
         </TouchableOpacity>
-      </View>
-      <Text>Latitude: {currentLatitude}</Text>
-      <Text>Longitude: {currentLongitude}</Text>
+      </LinearGradient>
     </View>
   );
 };
 
 export default Location;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    flex: 1,
+  },
+  txtInfoweather: {
+    padding: 20,
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  tempweather: {
+    fontSize: 22,
+    position: 'absolute',
+    top: 15,
+    right: 60,
+    color: '#566e72',
+  },
+  description: {
+    fontSize: 16,
+    position: 'absolute',
+    top: 50,
+    right: 50,
+    color: '#566e72',
+  },
+  linear: {
+    height: 90,
+    marginTop: 20,
+    borderRadius: 20,
+  },
+});

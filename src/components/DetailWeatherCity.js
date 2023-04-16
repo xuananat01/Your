@@ -11,10 +11,10 @@ const DetailWeatherCity = ({
         <View style={{position: 'relative', left: 10, top: 20}}>
           <View style={styles.vwBox}>
             <Text style={styles.detailsTitle}>Real Feel</Text>
-            <Text style={styles.detailsForecast}>{`${(
-              (feels_like - 32) *
-              (5 / 9)
-            ).toFixed()}°C`}</Text>
+            <Text
+              style={
+                styles.detailsForecast
+              }>{`${feels_like.toFixed()}°C`}</Text>
           </View>
           <View style={styles.vwBox}>
             <Text style={styles.detailsTitle}>Humidity</Text>

@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-// import { countReducer } from "./count-reducer";
-// import { stringReducer } from "./string-reducer";
+import {addCityReducer} from './addCity-reducer';
+import {addTemp} from './addTemp-reducer';
 
 export const rootReducer = combineReducers({
-  // countReducer: countReducer,
-  // stringReducer: stringReducer
+  addCityReducer: addCityReducer,
+  addTemp: addTemp,
 });
