@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -9,26 +9,14 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
-import Ionic from 'react-native-vector-icons/Ionicons';
-import getFormattedWeatherData from '../api/ApiWeather';
-import Location from './Location';
 import LinearGradient from 'react-native-linear-gradient';
+import Ionic from 'react-native-vector-icons/Ionicons';
 import {actionCityNameAdd} from '../redux/action/addCity-action';
+import Permision from './Permision';
 const {width, height} = Dimensions.get('window');
 
 const CityLocation = ({navigation}) => {
   const [inputText, setInputText] = useState('');
-  const [city, setCity] = useState({q: 'hanoi'});
-  const [units, setUnits] = useState('metric');
-  const [data, setData] = useState();
-
-  //fetch api again
-  useEffect(() => {
-    const fecthWeather = async () => {
-      await getFormattedWeatherData({...city, units}).then(res => setData(res));
-    };
-    fecthWeather();
-  }, [city, units]);
 
   //create new state
   const stringCityName = useSelector(state => state.addCityReducer.arr);
@@ -38,11 +26,11 @@ const CityLocation = ({navigation}) => {
   const sendValues = useCallback(() => {
     dispatch(actionCityNameAdd(inputText));
     setInputText('');
-    setCity({q: inputText});
   }, [dispatch, inputText]);
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack('WeatherScreen')}>
+      <TouchableOpacity onPress={() => navigation.goBack('weatherScreen')}>
         <Ionic name="arrow-back" size={26} style={styles.iconBack} />
       </TouchableOpacity>
       <Text style={styles.title}>Quản lý thành phố</Text>
@@ -60,27 +48,31 @@ const CityLocation = ({navigation}) => {
           <Text style={{fontSize: 20}}>Add</Text>
         </TouchableOpacity>
       </View>
-      {data ? (
-        <View style={styles.vwCity}>
-          {stringCityName.length > 0 &&
-            stringCityName.map((item, index) => {
-              return (
-                <LinearGradient
-                  colors={['#e6f4f7', '#cde9ee', '#b3dfe6']}
-                  style={styles.linear}
-                  key={index}>
-                  <TouchableOpacity style={{flexDirection: 'row'}}>
-                    <Text style={styles.txtInfoweather}>{item}</Text>
-                    <Text style={styles.tempweather}>
-                      {data.temp.toFixed()}
-                    </Text>
-                    <Text style={styles.description}>{data.description}</Text>
-                  </TouchableOpacity>
-                </LinearGradient>
-              );
-            })}
-        </View>
-      ) : null}
+      <View style={styles.vwCity}>
+        {stringCityName.length > 0 &&
+          stringCityName.map((item, index) => {
+            return (
+              <LinearGradient
+                colors={['#e6f4f7', '#cde9ee', '#b3dfe6']}
+                style={styles.linear}
+                key={index}>
+                <TouchableOpacity
+                  style={{flexDirection: 'row'}}
+                  onPress={() =>
+                    navigation.navigate({
+                      name: 'weatherScreen',
+                      paramsKey: item,
+                    })
+                  }>
+                  <Text style={styles.txtInfoweather}>{item}</Text>
+                  {/* <Text style={styles.tempweather}>{data.temp.toFixed()}</Text>
+                  <Text style={styles.description}>{data.description}</Text> */}
+                </TouchableOpacity>
+              </LinearGradient>
+            );
+          })}
+      </View>
+      <Permision />
     </View>
   );
 };

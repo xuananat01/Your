@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   ImageBackground,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,30 +12,38 @@ import {
 } from 'react-native';
 import FullScreenChz from 'react-native-fullscreen-chz';
 import Ionic from 'react-native-vector-icons/Ionicons';
+import {useDispatch} from 'react-redux';
 import getFormattedWeatherData from '../../api/ApiWeather';
 import DeatilWeatherDaily from '../../components/DeatilWeatherDaily';
 import DetailForecastCity from '../../components/DetailForecastCity';
 import DetailWeatherCity from '../../components/DetailWeatherCity';
 import DetailWeatherHourly from '../../components/DetailWeatherHourly';
 import TimeAndLocation from '../../components/TimeAndLocation';
+import {setLoading} from '../../redux/action/loading-action';
 //fullScreen
 FullScreenChz.enable();
 
 const {width, height} = Dimensions.get('window');
 
-const WeatherScreen = ({navigation}) => {
+const WeatherScreen = ({navigation, route}) => {
   const [city, setCity] = useState({q: 'hanoi'});
   const [units, setUnits] = useState('metric');
   const [data, setData] = useState();
   const [inputText, setInputText] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+  const dispatch = useDispatch();
 
+  const fecthWeather = async () => {
+    dispatch(setLoading(true));
+    await getFormattedWeatherData({...city, units}).then(res => {
+      setData(res), dispatch(setLoading(false)), setRefreshing(false);
+    });
+  };
   //callApiWeather
-
   useEffect(() => {
-    const fecthWeather = async () => {
-      await getFormattedWeatherData({...city, units}).then(res => setData(res));
-    };
+    dispatch(setLoading(true))
     fecthWeather();
+    dispatch(setLoading(false))
   }, [city, units]);
 
   //handle new location
@@ -42,12 +51,25 @@ const WeatherScreen = ({navigation}) => {
     // setCity(inputText);
     if (inputText !== '') {
       setCity({q: inputText});
+      setInputText('');
     }
   }
+  //handle Logout
+  const handleLogout = () => {
+    // AsyncStorage.clear();
+    navigation.replace('loginScreen');
+  };
 
   //getCurrentDate
   const date = new Date();
   const n = date.toDateString();
+
+  //load refresh
+  const RefreshOrder = () => {
+    setRefreshing(true);
+    setLoading(true);
+    fecthWeather();
+  };
 
   return (
     <View style={styles.container}>
@@ -64,10 +86,10 @@ const WeatherScreen = ({navigation}) => {
               style={styles.iconLocation}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleLogout}>
             <Ionic
-              name="ellipsis-vertical"
-              size={22}
+              name="log-out-outline"
+              size={26}
               style={styles.iconSetting}
             />
           </TouchableOpacity>
@@ -75,7 +97,6 @@ const WeatherScreen = ({navigation}) => {
             style={styles.findCity}
             placeholder="Search city"
             value={inputText}
-            // autoFocus={true}
             onChangeText={newValue => setInputText(newValue)}
           />
           <TouchableOpacity
@@ -85,7 +106,14 @@ const WeatherScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
         {data ? (
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={RefreshOrder}
+                // colors='#C3002F'
+              />
+            }>
             <TimeAndLocation weather={data} />
             <DetailForecastCity weather={data} />
             <DetailWeatherHourly items={data.hourly} />
@@ -120,7 +148,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     color: 'black',
     right: 20,
-    top: 25,
+    top: 23,
   },
   findCity: {
     fontSize: 14,
