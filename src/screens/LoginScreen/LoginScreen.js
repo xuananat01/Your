@@ -80,7 +80,6 @@ const LoginScreen = ({navigation}) => {
         <Text style={[styles.register, {color: 'red'}]}>Register</Text>
       </TouchableOpacity>
       <Text style={styles.textRegister}>────────────────</Text>
-      <Permision />
     </ImageBackground>
   );
 };

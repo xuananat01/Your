@@ -20,6 +20,8 @@ import DetailWeatherCity from '../../components/DetailWeatherCity';
 import DetailWeatherHourly from '../../components/DetailWeatherHourly';
 import TimeAndLocation from '../../components/TimeAndLocation';
 import {setLoading} from '../../redux/action/loading-action';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {styles} from './styles';
 //fullScreen
 FullScreenChz.enable();
 
@@ -41,9 +43,9 @@ const WeatherScreen = ({navigation, route}) => {
   };
   //callApiWeather
   useEffect(() => {
-    dispatch(setLoading(true))
+    dispatch(setLoading(true));
     fecthWeather();
-    dispatch(setLoading(false))
+    dispatch(setLoading(false));
   }, [city, units]);
 
   //handle new location
@@ -56,8 +58,12 @@ const WeatherScreen = ({navigation, route}) => {
   }
   //handle Logout
   const handleLogout = () => {
-    // AsyncStorage.clear();
+    AsyncStorage.removeItem('token');
     navigation.replace('loginScreen');
+  };
+
+  const handleCamera = () => {
+    navigation.navigate('usingCamera');
   };
 
   //getCurrentDate
@@ -92,6 +98,9 @@ const WeatherScreen = ({navigation, route}) => {
               size={26}
               style={styles.iconSetting}
             />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleCamera}>
+            <Ionic name="camera-outline" size={26} style={styles.iconCamera} />
           </TouchableOpacity>
           <TextInput
             style={styles.findCity}
@@ -128,66 +137,3 @@ const WeatherScreen = ({navigation, route}) => {
 };
 
 export default WeatherScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  containerHeader: {
-    flexDirection: 'column',
-    width,
-    marginTop: 30,
-  },
-  iconLocation: {
-    position: 'absolute',
-    color: 'black',
-    right: 60,
-    top: 25,
-  },
-  iconSetting: {
-    position: 'absolute',
-    color: 'black',
-    right: 20,
-    top: 23,
-  },
-  findCity: {
-    fontSize: 14,
-    marginTop: 80,
-    marginHorizontal: 25,
-    paddingLeft: 15,
-    borderColor: 'black',
-    borderRadius: 25,
-    borderWidth: 1,
-    height: 40,
-    // position: 'relative',
-  },
-  tobSearch: {
-    position: 'absolute',
-    right: 45,
-    marginTop: 88,
-  },
-  temperatureTitle: {
-    fontSize: 55,
-  },
-  countryView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width,
-  },
-  countryDetail: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    padding: 15,
-  },
-  largeIcon: {
-    width: 80,
-    height: 80,
-  },
-  line: {
-    height: 1,
-    width: '90%',
-    marginHorizontal: '5%',
-    marginTop: 20,
-    backgroundColor: 'black',
-  },
-});

@@ -86,39 +86,6 @@ const Permision = () => {
     );
   };
 
-  const subscribeLocationLocation = () => {
-    watchID = Geolocation.watchPosition(
-      (position) => {
-        //Will give you the location on location change
-
-        setLocationStatus('You are Here');
-        console.log(position);
-
-        //getting the Longitude from the location json
-        const currentLongitude =
-          JSON.stringify(position.coords.longitude.toFixed(8));
-
-        //getting the Latitude from the location json
-        const currentLatitude =
-          JSON.stringify(position.coords.latitude.toFixed(8));
-
-        //Setting Longitude state
-        setCurrentLongitude(currentLongitude);
-
-        //Setting Latitude state
-        setCurrentLatitude(currentLatitude);
-      },
-      (error) => {
-        setLocationStatus(error.message);
-      },
-      {
-        enableHighAccuracy: false,
-        // timeout: 30000,
-        maximumAge: 1000
-      },
-    );
-  };
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
