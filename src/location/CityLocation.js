@@ -11,8 +11,8 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Ionic from 'react-native-vector-icons/Ionicons';
-import {actionCityNameAdd} from '../redux/action/addCity-action';
-import Permision from './Permision';
+import { actionCityNameAdd } from '@redux/action/addCity-action';
+import Permission from './Permision';
 const {width, height} = Dimensions.get('window');
 
 const CityLocation = ({navigation}) => {
@@ -72,7 +72,7 @@ const CityLocation = ({navigation}) => {
             );
           })}
       </View>
-      <Permision />
+      <Permission />
     </View>
   );
 };

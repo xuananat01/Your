@@ -1,8 +1,8 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {iconUrlFromCode} from '../api/ApiWeather';
+import {iconUrlFromCode} from '../../api/ApiWeather';
 
-const DeatilWeatherDaily = ({items}) => {
+const DetailWeatherDaily = ({items}) => {
   return (
     <View style={styles.detailDaily}>
       {items.map((item, i) => (
@@ -39,7 +39,7 @@ const DeatilWeatherDaily = ({items}) => {
   );
 };
 
-export default DeatilWeatherDaily;
+export default DetailWeatherDaily;
 
 const styles = StyleSheet.create({
   detailDaily: {

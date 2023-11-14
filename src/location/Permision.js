@@ -16,7 +16,7 @@ import {
 //import all the components we are going to use.
 import Geolocation from '@react-native-community/geolocation';
 
-const Permision = () => {
+const Permission = () => {
   const [currentLongitude, setCurrentLongitude] = useState('...');
   const [currentLatitude, setCurrentLatitude] = useState('...');
   const [locationStatus, setLocationStatus] = useState('');
@@ -132,4 +132,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Permision;
+export default Permission;

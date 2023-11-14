@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Alert,
   Dimensions,
   ImageBackground,
   RefreshControl,
@@ -13,15 +14,17 @@ import {
 import FullScreenChz from 'react-native-fullscreen-chz';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
-import getFormattedWeatherData from '../../api/ApiWeather';
-import DeatilWeatherDaily from '../../components/DeatilWeatherDaily';
-import DetailForecastCity from '../../components/DetailForecastCity';
-import DetailWeatherCity from '../../components/DetailWeatherCity';
-import DetailWeatherHourly from '../../components/DetailWeatherHourly';
-import TimeAndLocation from '../../components/TimeAndLocation';
-import {setLoading} from '../../redux/action/loading-action';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {styles} from './styles';
+import messaging from '@react-native-firebase/messaging';
+import getFormattedWeatherData from 'src/api/ApiWeather';
+import {setLoading} from '@redux/action/loading-action';
+import TimeAndLocation from '@components/DetailComponents/TimeAndLocation';
+import DetailForecastCity from '@components/DetailComponents/DetailForecastCity';
+import DetailWeatherHourly from '@components/DetailComponents/DetailWeatherHourly';
+import DetailWeatherCity from '@components/DetailComponents/DetailWeatherCity';
+import { getToken, notificationListener, requestUserPermission } from '@utils/commonUtils';
+import DetailWeatherDaily from '@components/DetailComponents/DetailWeatherDaily';
 //fullScreen
 FullScreenChz.enable();
 
@@ -36,7 +39,6 @@ const WeatherScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
 
   const fecthWeather = async () => {
-    dispatch(setLoading(true));
     await getFormattedWeatherData({...city, units}).then(res => {
       setData(res), dispatch(setLoading(false)), setRefreshing(false);
     });
@@ -113,6 +115,16 @@ const WeatherScreen = ({navigation, route}) => {
             onPress={() => sendValues(inputText)}>
             <Ionic name="search" size={22} />
           </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              color: 'black',
+              right: 145,
+              top: 23,
+            }}
+            onPress={() => navigation.navigate('usingScanner')}>
+            <Ionic name="camera" size={22} />
+          </TouchableOpacity>
         </View>
         {data ? (
           <ScrollView
@@ -127,7 +139,7 @@ const WeatherScreen = ({navigation, route}) => {
             <DetailForecastCity weather={data} />
             <DetailWeatherHourly items={data.hourly} />
             <Text style={styles.line} />
-            <DeatilWeatherDaily items={data.daily} />
+            <DetailWeatherDaily items={data.daily} />
             <DetailWeatherCity weather={data} />
           </ScrollView>
         ) : null}

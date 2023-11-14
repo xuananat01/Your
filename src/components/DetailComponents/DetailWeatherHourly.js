@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import React from 'react';
-import {iconUrlFromCode} from '../api/ApiWeather';
+import {iconUrlFromCode} from '../../api/ApiWeather';
 
 const {width, height} = Dimensions.get('window');
 

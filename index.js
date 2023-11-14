@@ -1,11 +1,11 @@
 /**
  * @format
  */
-import {AppRegistry} from 'react-native';
+import {AppRegistry,LogBox} from 'react-native';
 import {Provider} from 'react-redux';
 import App from './App';
 import {name as appName} from './app.json';
-import {store} from './src/redux/store';
+import { store } from '@redux/store';
 
 const Root = () => {
   return (
@@ -14,5 +14,9 @@ const Root = () => {
     </Provider>
   );
 };
+
+if (__DEV__) {
+  LogBox.ignoreAllLogs();
+}
 
 AppRegistry.registerComponent(appName, () => Root);

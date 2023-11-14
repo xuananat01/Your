@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
-import {formatToLocalTime} from '../api/ApiWeather';
+import {formatToLocalTime} from '../../api/ApiWeather';
 
 const DetailForecastCity = ({
   weather: {sunrise, sunset, temp, details, timezone},
