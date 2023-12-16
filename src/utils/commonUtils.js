@@ -57,6 +57,7 @@ export async function unRegisterAppWithFCM() {
   );
 }
 
+// xin quyền
 export const checkApplicationNotificationPermission = async () => {
   const authStatus = await messaging().requestPermission();
   const enabled =

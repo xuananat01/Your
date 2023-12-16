@@ -1,5 +1,5 @@
 // import React in our code
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 
 // import all the components we are going to use
 import {
@@ -15,11 +15,13 @@ import {
 
 //import all the components we are going to use.
 import Geolocation from '@react-native-community/geolocation';
+import { LocalizationContext } from '@context/index';
 
 const Permission = () => {
   const [currentLongitude, setCurrentLongitude] = useState('...');
   const [currentLatitude, setCurrentLatitude] = useState('...');
   const [locationStatus, setLocationStatus] = useState('');
+  const { t } = useContext(LocalizationContext);
 
   useEffect(() => {
     const requestLocationPermission = async () => {
@@ -90,14 +92,15 @@ const Permission = () => {
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         <View style={styles.container}>
-          <Text style={styles.boldText}>{locationStatus}</Text>
+          {/* <Text style={styles.boldText}>{locationStatus}</Text> */}
           <Text
             style={{
               justifyContent: 'center',
               alignItems: 'center',
               marginTop: 16,
             }}>
-            Longitude: {currentLongitude}
+            {/* Longitude: {currentLongitude} */}
+            {t('Check function i18n')}
           </Text>
           <Text
             style={{
@@ -105,11 +108,12 @@ const Permission = () => {
               alignItems: 'center',
               marginTop: 16,
             }}>
-            Latitude: {currentLatitude}
+            {/* Latitude: {currentLatitude} */}
+            {t('Success')}
           </Text>
-          <View style={{marginTop: 20}}>
+          {/* <View style={{marginTop: 20}}>
             <Button title="Refresh" onPress={getOneTimeLocation} />
-          </View>
+          </View> */}
         </View>
       </View>
     </SafeAreaView>

@@ -154,7 +154,7 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation platform('com.google.firebase:firebase-bom:32.4.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-
+    implementation project(':react-native-localize')
 
     implementation("com.facebook.react:react-android")
     implementation project(':react-native-camera')

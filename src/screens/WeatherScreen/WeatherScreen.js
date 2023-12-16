@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Alert,
   Dimensions,
@@ -25,6 +25,7 @@ import DetailWeatherHourly from '@components/DetailComponents/DetailWeatherHourl
 import DetailWeatherCity from '@components/DetailComponents/DetailWeatherCity';
 import { getToken, notificationListener, requestUserPermission } from '@utils/commonUtils';
 import DetailWeatherDaily from '@components/DetailComponents/DetailWeatherDaily';
+import { LocalizationContext } from '@context/index';
 //fullScreen
 FullScreenChz.enable();
 
@@ -60,8 +61,9 @@ const WeatherScreen = ({navigation, route}) => {
   }
   //handle Logout
   const handleLogout = () => {
-    AsyncStorage.removeItem('token');
-    navigation.replace('loginScreen');
+    // AsyncStorage.removeItem('token');
+    // navigation.replace('loginScreen');
+    navigation.navigate('changeLanguage')
   };
 
   const handleCamera = () => {
