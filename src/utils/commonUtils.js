@@ -8,7 +8,7 @@ export const getFcmToken = async () => {
   await registerAppWithFCM();
   try {
     token = await messaging().getToken();
-    console.log('getFcmToken-->', token);
+    // console.log('getFcmToken-->', token);
   } catch (error) {
     console.log('getFcmToken Device Token error ', error);
   }
@@ -18,8 +18,8 @@ export const getFcmToken = async () => {
 //method was called on  user register with firebase FCM for notification
 export async function registerAppWithFCM() {
   console.log(
-    'registerAppWithFCM status',
-    messaging().isDeviceRegisteredForRemoteMessages,
+    // 'registerAppWithFCM status',
+    // messaging().isDeviceRegisteredForRemoteMessages,
   );
   if (!messaging().isDeviceRegisteredForRemoteMessages) {
     await messaging()
@@ -65,14 +65,14 @@ export const checkApplicationNotificationPermission = async () => {
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
   if (enabled) {
-    console.log('Authorization status:', authStatus);
+    // console.log('Authorization status:', authStatus);
   }
   request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS)
     .then(result => {
-      console.log('POST_NOTIFICATIONS status:', result);
+      // console.log('POST_NOTIFICATIONS status:', result);
     })
     .catch(error => {
-      console.log('POST_NOTIFICATIONS error ', error);
+      // console.log('POST_NOTIFICATIONS error ', error);
     });
 };
 

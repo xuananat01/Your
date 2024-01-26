@@ -23,9 +23,13 @@ import TimeAndLocation from '@components/DetailComponents/TimeAndLocation';
 import DetailForecastCity from '@components/DetailComponents/DetailForecastCity';
 import DetailWeatherHourly from '@components/DetailComponents/DetailWeatherHourly';
 import DetailWeatherCity from '@components/DetailComponents/DetailWeatherCity';
-import { getToken, notificationListener, requestUserPermission } from '@utils/commonUtils';
+import {
+  getToken,
+  notificationListener,
+  requestUserPermission,
+} from '@utils/commonUtils';
 import DetailWeatherDaily from '@components/DetailComponents/DetailWeatherDaily';
-import { LocalizationContext } from '@context/index';
+import {LocalizationContext} from '@context/index';
 //fullScreen
 FullScreenChz.enable();
 
@@ -61,9 +65,9 @@ const WeatherScreen = ({navigation, route}) => {
   }
   //handle Logout
   const handleLogout = () => {
-    // AsyncStorage.removeItem('token');
-    // navigation.replace('loginScreen');
-    navigation.navigate('changeLanguage')
+    navigation.replace('loginScreen');
+    AsyncStorage.removeItem('accessToken');
+    // navigation.navigate('changeLanguage')
   };
 
   const handleCamera = () => {
@@ -124,7 +128,7 @@ const WeatherScreen = ({navigation, route}) => {
               right: 145,
               top: 23,
             }}
-            onPress={() => navigation.navigate('usingScanner')}>
+            onPress={() => navigation.navigate('changeLanguage')}>
             <Ionic name="camera" size={22} />
           </TouchableOpacity>
         </View>

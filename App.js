@@ -1,6 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UsingCamera from '@components/UsingCamera';
@@ -12,12 +12,15 @@ import CityLocation from '@location/CityLocation';
 import {getFcmToken, registerListenerWithFCM} from '@utils/commonUtils';
 import {LocalizationProvider} from '@context/Localization';
 import ChangeLanguage from '@components/Setting/ChangeLanguage';
+import { useSelector } from 'react-redux';
+import LoginPhone from '@screens/LoginScreen/LoginPhone';
 
 const Stack = createNativeStackNavigator();
 
-const passKey = AsyncStorage.getItem('token');
-
 const App = () => {
+
+  const accessToken = useSelector(state => state.authReducer.accessToken);
+
   useEffect(() => {
     getFcmToken();
   }, []);
@@ -31,25 +34,28 @@ const App = () => {
     <LocalizationProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          {passKey === null ? (
+          {accessToken ? (
             <>
-              <Stack.Screen name="loginScreen" component={LoginScreen} />
-              <Stack.Screen name="registerScreen" component={RegisterScreen} />
               <Stack.Screen name="weatherScreen" component={WeatherScreen} />
               <Stack.Screen name="locationScreen" component={CityLocation} />
+              <Stack.Screen name="registerScreen" component={RegisterScreen} />
               <Stack.Screen name="usingCamera" component={UsingCamera} />
               <Stack.Screen name="usingScanner" component={UsingScanner} />
               <Stack.Screen name="changeLanguage" component={ChangeLanguage} />
+              <Stack.Screen name="loginScreen" component={LoginScreen} />
+              <Stack.Screen name="loginPhone" component={LoginPhone} />
+
             </>
           ) : (
             <>
               <Stack.Screen name="weatherScreen" component={WeatherScreen} />
-              <Stack.Screen name="locationScreen" component={CityLocation} />
               <Stack.Screen name="loginScreen" component={LoginScreen} />
+              <Stack.Screen name="locationScreen" component={CityLocation} />
               <Stack.Screen name="registerScreen" component={RegisterScreen} />
               <Stack.Screen name="usingCamera" component={UsingCamera} />
               <Stack.Screen name="usingScanner" component={UsingScanner} />
               <Stack.Screen name="changeLanguage" component={ChangeLanguage} />
+              <Stack.Screen name="loginPhone" component={LoginPhone} />
             </>
           )}
         </Stack.Navigator>

@@ -10,12 +10,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Permision from '../../location/Permision';
+import {useDispatch} from 'react-redux';
+import {setAccessToken} from '@redux/action/auth-action';
 
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [tk, setTk] = useState('');
-  const [mk, setMk] = useState('');
+
+  const dispatch = useDispatch();
 
   //get username, password to inputText
   const handleOnchangeUser = value => {
@@ -41,11 +43,16 @@ const LoginScreen = ({navigation}) => {
       },
     })
       .then(res => {
-        AsyncStorage.setItem('token', res.data.token);
+        AsyncStorage.setItem('accessToken', res.data.token);
         navigation.navigate('weatherScreen');
+        dispatch(setAccessToken(`${res.data.token}`));
       })
       .catch(error => Alert.alert(error.response.data.error));
   };
+
+  const _onPressLoginPhone = () => {
+    navigation.navigate('loginPhone')
+  }
 
   return (
     <ImageBackground
@@ -78,6 +85,11 @@ const LoginScreen = ({navigation}) => {
         style={{flexDirection: 'row', justifyContent: 'center'}}>
         <Text style={styles.register}>Don't have an account? </Text>
         <Text style={[styles.register, {color: 'red'}]}>Register</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={_onPressLoginPhone}>
+        <Text style={[styles.register, {color: 'red'}]}>
+          Login with Phone number
+        </Text>
       </TouchableOpacity>
       <Text style={styles.textRegister}>────────────────</Text>
     </ImageBackground>

@@ -4,15 +4,14 @@
 import {AppRegistry, LogBox} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
-import { Provider } from 'react-redux';
-import { store } from '@redux/store';
-
+import {Provider, createStoreHook} from 'react-redux';
+import {store} from '@redux/store';
 
 const Root = () => {
   return (
-      <Provider Provider store={store}>
-        <App />
-      </Provider>
+    <Provider Provider store={store}>
+      <App />
+    </Provider>
   );
 };
 
