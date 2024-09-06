@@ -40,19 +40,19 @@ jobs:
           chmod 0755 gradlew
           ./gradlew assembleRelease
 
-      - name: Build Android AAB
-        run: |
-          cd android
-          ./gradlew bundleRelease
+    #   - name: Build Android AAB
+    #     run: |
+    #       cd android
+    #       ./gradlew bundleRelease
 
-      - name: Upload APK Release - ${{ env.repository_name }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.date_today }} - ${{ env.repository_name }} - APK(s) release generated
-          path: android/app/build/outputs/apk/release/
+    #   - name: Upload APK Release - ${{ env.repository_name }}
+    #     uses: actions/upload-artifact@v3
+    #     with:
+    #       name: ${{ env.date_today }} - ${{ env.repository_name }} - APK(s) release generated
+    #       path: android/app/build/outputs/apk/release/
 
-      - name: Upload AAB (App Bundle) Release - ${{ env.repository_name }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.date_today }} - ${{ env.repository_name }} - App bundle(s) AAB release generated
-          path: android/app/build/outputs/bundle/release/
+    #   - name: Upload AAB (App Bundle) Release - ${{ env.repository_name }}
+    #     uses: actions/upload-artifact@v3
+    #     with:
+    #       name: ${{ env.date_today }} - ${{ env.repository_name }} - App bundle(s) AAB release generated
+    #       path: android/app/build/outputs/bundle/release/
