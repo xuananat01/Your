@@ -159,9 +159,11 @@
 //   });
 // }
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
-import AsyncStorage from '@react-native-community/async-storage';
+// import AsyncStorage from '@react-native-community/async-storage';
 import PushNotification from 'react-native-push-notification';
+
 
 export async function getFirebaseToken() {
     return new Promise((handleSuccess, handleError) => {
