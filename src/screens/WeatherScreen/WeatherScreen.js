@@ -30,6 +30,7 @@ import {
 } from '@utils/commonUtils';
 import DetailWeatherDaily from '@components/DetailComponents/DetailWeatherDaily';
 import {LocalizationContext} from '@context/index';
+import Orientation from 'react-native-orientation-locker';
 //fullScreen
 FullScreenChz.enable();
 
@@ -54,6 +55,10 @@ const WeatherScreen = ({navigation, route}) => {
     fecthWeather();
     dispatch(setLoading(false));
   }, [city, units]);
+  
+  useEffect(() => {
+    Orientation.lockToPortrait();
+  },[])
 
   //handle new location
   function sendValues() {
@@ -109,6 +114,13 @@ const WeatherScreen = ({navigation, route}) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={handleCamera}>
             <Ionic name="camera-outline" size={26} style={styles.iconCamera} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('calendarScreen')}>
+            <Ionic
+              name="calendar-outline"
+              size={26}
+              style={styles.iconCalendar}
+            />
           </TouchableOpacity>
           <TextInput
             style={styles.findCity}

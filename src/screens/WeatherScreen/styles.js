@@ -29,6 +29,12 @@ export const styles = StyleSheet.create({
     right: 100,
     top: 23,
   },
+  iconCalendar: {
+    position: 'absolute',
+    color: 'black',
+    right: 180,
+    top: 23,
+  },
   findCity: {
     fontSize: 14,
     marginTop: 80,

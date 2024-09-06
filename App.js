@@ -12,13 +12,23 @@ import CityLocation from '@location/CityLocation';
 import {getFcmToken, registerListenerWithFCM} from '@utils/commonUtils';
 import {LocalizationProvider} from '@context/Localization';
 import ChangeLanguage from '@components/Setting/ChangeLanguage';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import LoginPhone from '@screens/LoginScreen/LoginPhone';
+import CodePush from 'react-native-code-push';
+import CalendarScreen from '@screens/Calendar/CalendarScreen';
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+let CodePushOptions = {
+  checkFrequency: CodePush.CheckFrequency.MANUAL,
+  mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+  updateDialog: {
+    appendReleaseDescription: true,
+    title: 'a new update is available!',
+  },
+};
 
+const App = () => {
   const accessToken = useSelector(state => state.authReducer.accessToken);
 
   useEffect(() => {
@@ -44,7 +54,7 @@ const App = () => {
               <Stack.Screen name="changeLanguage" component={ChangeLanguage} />
               <Stack.Screen name="loginScreen" component={LoginScreen} />
               <Stack.Screen name="loginPhone" component={LoginPhone} />
-
+              <Stack.Screen name='calendarScreen' component={CalendarScreen} />
             </>
           ) : (
             <>
@@ -56,6 +66,7 @@ const App = () => {
               <Stack.Screen name="usingScanner" component={UsingScanner} />
               <Stack.Screen name="changeLanguage" component={ChangeLanguage} />
               <Stack.Screen name="loginPhone" component={LoginPhone} />
+              <Stack.Screen name='calendarScreen' component={CalendarScreen} />
             </>
           )}
         </Stack.Navigator>
@@ -64,6 +75,6 @@ const App = () => {
   );
 };
 
-export default App;
+export default CodePush(CodePushOptions)(App);
 
 const styles = StyleSheet.create({});

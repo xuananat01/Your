@@ -26,7 +26,7 @@ const CityLocation = ({navigation}) => {
   const sendValues = useCallback(() => {
     dispatch(actionCityNameAdd(inputText));
     setInputText('');
-  }, [dispatch, inputText]);
+  }, [inputText]);
 
   return (
     <View style={styles.container}>
@@ -40,7 +40,7 @@ const CityLocation = ({navigation}) => {
       <View style={{flexDirection: 'row'}}>
         <TextInput
           style={styles.findCity}
-          placeholder="Search city"
+          placeholder="Tìm kiếm tại đây"
           value={inputText}
           onChangeText={newValue => setInputText(newValue)}
         />
