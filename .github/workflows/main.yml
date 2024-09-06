@@ -37,6 +37,7 @@ jobs:
       - name: Build Android APK
         run: |
           cd android
+          chmod 0755 gradlew
           ./gradlew assembleRelease
 
       - name: Build Android AAB
