@@ -9,7 +9,7 @@ import LoginScreen from '@screens/LoginScreen/LoginScreen';
 import RegisterScreen from '@screens/LoginScreen/RegisterScreen';
 import WeatherScreen from '@screens/WeatherScreen/WeatherScreen';
 import CityLocation from '@location/CityLocation';
-import {getFcmToken, registerListenerWithFCM} from '@utils/commonUtils';
+import {getFcmToken, getFirebaseToken, registerListenerWithFCM} from '@utils/commonUtils';
 import {LocalizationProvider} from '@context/Localization';
 import ChangeLanguage from '@components/Setting/ChangeLanguage';
 import {useSelector} from 'react-redux';
@@ -32,13 +32,13 @@ const App = () => {
   const accessToken = useSelector(state => state.authReducer.accessToken);
 
   useEffect(() => {
-    getFcmToken();
+    getFirebaseToken();
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = registerListenerWithFCM();
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = registerListenerWithFCM();
+  //   return unsubscribe;
+  // }, []);
 
   return (
     <LocalizationProvider>
