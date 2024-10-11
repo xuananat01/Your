@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {formatToLocalTime} from '../../api/ApiWeather';
+import {formatToLocalTime} from '../../repository/api/ApiWeather';
 
 const TimeAndLocation = ({weather: {dt, name, timezone, country}}) => {
   return (

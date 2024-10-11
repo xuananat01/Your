@@ -17,7 +17,7 @@ import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {styles} from './styles';
 import messaging from '@react-native-firebase/messaging';
-import getFormattedWeatherData from 'src/api/ApiWeather';
+import getFormattedWeatherData from '@repository/api/ApiWeather';
 import {setLoading} from '@redux/action/loading-action';
 import TimeAndLocation from '@components/DetailComponents/TimeAndLocation';
 import DetailForecastCity from '@components/DetailComponents/DetailForecastCity';

@@ -5,8 +5,8 @@ import vi from '@i18n/vi';
 import en from '@i18n/en';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LocalizationContext} from './index';
-import Permission from '@location/Permision';
-import WeatherScreen from '@screens/WeatherScreen/WeatherScreen';
+import Permission from 'src/pages/location/Permision';
+import WeatherScreen from 'src/pages/screens/WeatherScreen/WeatherScreen';
 import App from 'App';
 
 I18n.fallbacks = true;

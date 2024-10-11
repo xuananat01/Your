@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {iconUrlFromCode} from '../../api/ApiWeather';
+import {iconUrlFromCode} from '../../repository/api/ApiWeather';
 
 const DetailWeatherDaily = ({items}) => {
   return (

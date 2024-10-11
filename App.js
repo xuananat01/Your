@@ -5,17 +5,17 @@ import {StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UsingCamera from '@components/UsingCamera';
 import UsingScanner from '@components/UsingScanner';
-import LoginScreen from '@screens/LoginScreen/LoginScreen';
-import RegisterScreen from '@screens/LoginScreen/RegisterScreen';
-import WeatherScreen from '@screens/WeatherScreen/WeatherScreen';
-import CityLocation from '@location/CityLocation';
+import LoginScreen from 'src/pages/screens/LoginScreen/LoginScreen';
+import RegisterScreen from 'src/pages/screens/LoginScreen/RegisterScreen';
+import WeatherScreen from 'src/pages/screens/WeatherScreen/WeatherScreen';
+import CityLocation from 'src/pages/location/CityLocation';
 import {getFcmToken, getFirebaseToken, registerListenerWithFCM} from '@utils/commonUtils';
 import {LocalizationProvider} from '@context/Localization';
 import ChangeLanguage from '@components/Setting/ChangeLanguage';
 import {useSelector} from 'react-redux';
-import LoginPhone from '@screens/LoginScreen/LoginPhone';
+import LoginPhone from 'src/pages/screens/LoginScreen/LoginPhone';
 import CodePush from 'react-native-code-push';
-import CalendarScreen from '@screens/Calendar/CalendarScreen';
+import CalendarScreen from 'src/pages/screens/Calendar/CalendarScreen';
 
 const Stack = createNativeStackNavigator();
 
