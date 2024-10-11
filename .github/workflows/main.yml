@@ -40,10 +40,10 @@ jobs:
           chmod 0755 gradlew
           ./gradlew assembleRelease
 
-    #   - name: Build Android AAB
-    #     run: |
-    #       cd android
-    #       ./gradlew bundleRelease
+      - name: Build Android AAB
+        run: |
+          cd android
+          ./gradlew bundleRelease
 
     #   - name: Upload APK Release - ${{ env.repository_name }}
     #     uses: actions/upload-artifact@v3
